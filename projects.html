@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Projects – Northbeam Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+<header class="top"><div class="wrap bar">
+<a class="logo" href="index.html">Northbeam</a>
+<nav aria-label="Main"><a href="index.html">Home</a><a href="projects.html" aria-current="page">Projects</a></nav>
+</div></header>
+<main>
+<section class="wrap phead">
+<h1>Projects</h1>
+<p>A selection of stands, activations, print runs and interiors. Select any project to see it larger.</p>
+</section>
+<div class="wrap">
+<div class="filters" role="group" aria-label="Filter projects" id="filters"></div>
+<div class="grid" id="grid"></div>
+</div>
+<section class="cta" style="padding-top:56px"><div class="wrap">
+<h2>Want your project here?</h2>
+<a class="btn" href="mailto:hello@northbeam.example">Start a project</a>
+</div></section>
+</main>
+<footer><div class="wrap"><span>© 2026 Northbeam Studio</span><span>Placeholder content. Replace with your own.</span></div></footer>
+
+<dialog id="dlg" aria-label="Project detail"><button class="x" id="dx" aria-label="Close">×</button><img id="di" alt=""><div class="cap"><h3 id="dt"></h3><p id="dd"></p></div></dialog>
+
+<script>
+
+var P=[
+{id:1,cat:"Exhibition",title:"Timber arch trade show stand",place:"Convention hall",img:"images/image1.jpg",alt:"Timber-framed exhibition stand with a lit logo wall and a busy reception desk",desc:"A two-level island stand with curved timber ribs, an upper meeting deck, integrated LED edge lighting and a central reception desk."},
+{id:2,cat:"Activation",title:"Mall tech festival zone",place:"Shopping mall atrium",img:"images/image2.jpg",alt:"Mall activation with LED signage and counters",desc:"A hanging LED sign, a branded tower and themed counters for gaming, creative and lifestyle zones, built to run through busy weekend crowds."},
+{id:3,cat:"Production",title:"Large-format print workshop",place:"Our production floor",img:"images/image3.jpg",alt:"Print workshop with a UV flatbed printer and finished banners",desc:"UV flatbed and roll-to-roll printing, finishing tables and a rack of finished banners, all produced in-house."},
+{id:4,cat:"Retail",title:"Premium accessories boutique",place:"Retail store",img:"images/image4.jpg",alt:"Retail store interior with timber shelving and glass cases",desc:"Walnut-toned joinery, backlit shelves, glass display cases and a polished concrete floor for a store selling bags, watches and clothing."}
+];
+var cats=["All"].concat(P.map(function(p){return p.cat}));
+var grid=document.getElementById('grid'),fl=document.getElementById('filters'),dlg=document.getElementById('dlg');
+P.forEach(function(p){var b=document.createElement('button');b.className='card';b.dataset.cat=p.cat;
+b.innerHTML='<div class="im"><img loading="lazy" src="'+p.img+'" alt="'+p.alt+'"></div><div class="meta"><h3>'+p.title+'</h3><span>'+p.place+'</span></div><p>'+p.desc+'</p>';
+b.onclick=function(){document.getElementById('di').src=p.img;document.getElementById('di').alt=p.alt;document.getElementById('dt').textContent=p.title;document.getElementById('dd').textContent=p.desc;dlg.showModal()};
+grid.appendChild(b)});
+cats.forEach(function(c,i){var b=document.createElement('button');b.className='chip';b.textContent=c;b.setAttribute('aria-pressed',i==0);
+b.onclick=function(){[].forEach.call(fl.children,function(x){x.setAttribute('aria-pressed',x===b)});
+[].forEach.call(grid.children,function(g){g.hidden=!(c=="All"||g.dataset.cat==c)})};fl.appendChild(b)});
+document.getElementById('dx').onclick=function(){dlg.close()};
+dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
+</script>
+</body>
+</html>
